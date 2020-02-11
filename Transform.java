@@ -14,9 +14,9 @@ public class Transform
 	
 	private final Matrix4f matrix;
 	
-	public Transform() 														  { this(new Vector3f(0,0,0), new Quaternionf(0,0,0,1), new Vector3f(1,1,1)); }
-	public Transform(Vector3f position) 					  				  { this(position, new Quaternionf(0,0,0,1), new Vector3f(1,1,1)); }
-	public Transform(Vector3f position, Quaternionf rotation) 				  { this(position, rotation, new Vector3f(1,1,1)); }
+	public Transform() 							  { this(new Vector3f(0,0,0), new Quaternionf(0,0,0,1), new Vector3f(1,1,1)); }
+	public Transform(Vector3f position) 					  { this(position, new Quaternionf(0,0,0,1), new Vector3f(1,1,1)); }
+	public Transform(Vector3f position, Quaternionf rotation) 		  { this(position, rotation, new Vector3f(1,1,1)); }
 	public Transform(Vector3f position, Quaternionf rotation, Vector3f scale)
 	{
 		this.position = position;
@@ -35,55 +35,55 @@ public class Transform
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public void setPosition(Vector3f position)					{ this.position = position; }
-	public void setPosition(float x, float y, float z)			{ position.x = x; position.y = y; position.z = z; }
-	public void setRotation(Quaternionf rotation)				{ this.rotation = rotation; }
+	public void setPosition(Vector3f position)		    { this.position = position; }
+	public void setPosition(float x, float y, float z)	    { position.x = x; position.y = y; position.z = z; }
+	public void setRotation(Quaternionf rotation)		    { this.rotation = rotation; }
 	public void setRotation(float x, float y, float z, float w) { rotation.x = x; rotation.y = y; rotation.z = z; rotation.w = w; }
-	public void setScale(Vector3f scale)						{ this.scale = scale; }
-	public void setScale(float x, float y, float z) 			{ scale.x = x; scale.y = y;	scale.z = z; }
+	public void setScale(Vector3f scale)			    { this.scale = scale; }
+	public void setScale(float x, float y, float z)    	    { scale.x = x; scale.y = y;	scale.z = z; }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public void move(Vector3f movement)				{ position.add(movement); }
+	public void move(Vector3f movement)		{ position.add(movement); }
 	public void move(float x, float y, float z) 	{ position.x += x; position.y += y; position.z += z; }
 	public void move(Vector3f direction, float amt) { move(direction.mul(amt)); }
 	
-	public void moveForward(float amt)				{ move(getForward().mul(amt)); }
-	public void moveBack(float amt)					{ move(getBack().mul(amt)); }
-	public void moveUp(float amt)					{ move(getUp().mul(amt)); }
-	public void moveDown(float amt)					{ move(getDown().mul(amt)); }
-	public void moveLeft(float amt)					{ move(getLeft().mul(amt)); }
-	public void moveRight(float amt)				{ move(getRight().mul(amt)); }
+	public void moveForward(float amt)		{ move(getForward().mul(amt)); }
+	public void moveBack(float amt)			{ move(getBack().mul(amt)); }
+	public void moveUp(float amt)			{ move(getUp().mul(amt)); }
+	public void moveDown(float amt)			{ move(getDown().mul(amt)); }
+	public void moveLeft(float amt)			{ move(getLeft().mul(amt)); }
+	public void moveRight(float amt)		{ move(getRight().mul(amt)); }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public void rotate(Quaternionf rotation)	   { rotation.mul(this.rotation, this.rotation).normalize(); }	
+	public void rotate(Quaternionf rotation)       { rotation.mul(this.rotation, this.rotation).normalize(); }	
 	public void rotate(float angle, Vector3f axis)
 	{
 		float sin = (float)Math.sin(angle * 0.5);
-        float cos = (float)Math.cos(angle * 0.5);
-        float x = axis.x * sin;
-        float y = axis.y * sin;
-        float z = axis.z * sin;
-        float w = cos;
+        	float cos = (float)Math.cos(angle * 0.5);
+        	float x = axis.x * sin;
+        	float y = axis.y * sin;
+        	float z = axis.z * sin;
+        	float w = cos;
 		
 		Quaternionf toRotate = new Quaternionf(x, y, z, w);
 		rotate(toRotate);
 	}
 		
-	public void rotatePitch(float angle)		   { rotate(angle, getLeft()); }
-	public void rotateYaw(float angle)		   	   { rotate(angle, getUp()); }
-	public void rotateRoll(float angle)		   	   { rotate(angle, getForward()); }
+	public void rotatePitch(float angle)		{ rotate(angle, getLeft()); }
+	public void rotateYaw(float angle)		{ rotate(angle, getUp()); }
+	public void rotateRoll(float angle)		{ rotate(angle, getForward()); }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Directions relative to the current orientation (rotation)
 	public Vector3f getForward() { return new Vector3f(0, 0, 1).rotate(rotation); }
 	public Vector3f getBack()    { return new Vector3f(0, 0, -1).rotate(rotation); }
-	public Vector3f getUp()		 { return new Vector3f(0, 1, 0).rotate(rotation); }
-	public Vector3f getDown()	 { return new Vector3f(0, -1, 0).rotate(rotation); }
-	public Vector3f getLeft()  	 { return new Vector3f(1, 0, 0).rotate(rotation); }
-	public Vector3f getRight()	 { return new Vector3f(-1, 0, 0).rotate(rotation); }	
+	public Vector3f getUp()	     { return new Vector3f(0, 1, 0).rotate(rotation); }
+	public Vector3f getDown()    { return new Vector3f(0, -1, 0).rotate(rotation); }
+	public Vector3f getLeft()    { return new Vector3f(1, 0, 0).rotate(rotation); }
+	public Vector3f getRight()   { return new Vector3f(-1, 0, 0).rotate(rotation); }	
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -100,7 +100,7 @@ public class Transform
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private Vector3f toEulerAngles()
+	private Vector3f toEulerAngles() // not 100% sure it works (copy-pasted from wikipedia basically)
 	{
 	    Vector3f angles = new Vector3f();
 
