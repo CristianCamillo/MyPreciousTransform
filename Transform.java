@@ -30,8 +30,8 @@ public class Transform
 	
 	public Vector3f getPosition()	 { return position; }
 	public Quaternionf getRotation() { return rotation; }
-	public Vector3f getScale()		 { return scale; }
-	public Vector3f getAngles()		 { return toEulerAngles(); }
+	public Vector3f getScale()	 { return scale; }
+	public Vector3f getAngles()	 { return toEulerAngles(); }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
